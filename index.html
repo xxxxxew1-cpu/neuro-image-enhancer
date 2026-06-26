@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Улучшение изображений нейросетью прямо в браузере: яркость, контрастность, цветность. Без сервера."
+    />
+    <title>Neuro Image Enhancer — улучшение фото в браузере</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <h1>✨ Neuro Image Enhancer</h1>
+        <p class="subtitle">
+          ИИ подбирает яркость, контрастность и цветность. Обработка целиком в браузере —
+          изображения никуда не отправляются.
+        </p>
+      </header>
+
+      <main>
+        <section id="dropzone" class="dropzone" tabindex="0" aria-label="Загрузить изображение">
+          <input id="file-input" type="file" accept="image/*,.heic,.heif,.bmp" hidden />
+          <div class="dropzone-inner">
+            <div class="dropzone-icon">🖼️</div>
+            <p class="dropzone-title">Перетащите изображение сюда или нажмите, чтобы выбрать</p>
+            <p class="dropzone-hint">JPG · PNG · HEIC · BMP — до 15 Мпк</p>
+          </div>
+        </section>
+
+        <section id="controls" class="controls" hidden>
+          <label class="toggle">
+            <input id="use-ml" type="checkbox" checked />
+            <span>Использовать нейросеть (ИИ-подбор параметров)</span>
+          </label>
+          <label class="select">
+            <span>Формат результата</span>
+            <select id="out-format">
+              <option value="image/jpeg">JPEG</option>
+              <option value="image/png">PNG</option>
+            </select>
+          </label>
+          <label class="select">
+            <span>Сила коррекции: <b id="strength-val">70%</b></span>
+            <input id="strength" type="range" min="0" max="100" value="70" />
+          </label>
+          <button id="abort-btn" class="btn btn-secondary" hidden>Прервать</button>
+        </section>
+
+        <section id="status-panel" class="status-panel" hidden>
+          <div class="status-row">
+            <span id="status-label" class="status-label">Готово к работе</span>
+            <span id="status-percent" class="status-percent">0%</span>
+          </div>
+          <div class="progress">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+          <p id="status-detail" class="status-detail"></p>
+        </section>
+
+        <section id="result" class="result" hidden>
+          <div class="compare" id="compare">
+            <img id="img-before" alt="Оригинал" />
+            <div class="compare-after" id="compare-after">
+              <img id="img-after" alt="Результат" />
+            </div>
+            <input
+              id="compare-slider"
+              class="compare-slider"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              aria-label="Сравнение до/после"
+            />
+            <span class="compare-tag compare-tag-left">До</span>
+            <span class="compare-tag compare-tag-right">После</span>
+          </div>
+
+          <div class="result-meta" id="result-meta"></div>
+
+          <div class="result-actions">
+            <a id="download-btn" class="btn btn-primary" download>Скачать результат</a>
+            <button id="reset-btn" class="btn btn-secondary">Загрузить другое</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <span id="backend-badge" class="badge">движок: …</span>
+        <span class="badge">offline-ready</span>
+        <a class="badge link" href="https://github.com" id="repo-link" target="_blank" rel="noreferrer">исходники</a>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
