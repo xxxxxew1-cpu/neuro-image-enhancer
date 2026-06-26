@@ -27,11 +27,6 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      # Auto-enables GitHub Pages (build type = GitHub Actions) on first run,
-      # so no manual toggling in Settings → Pages is needed.
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - run: npm ci
       - run: npm run build
       - run: node scripts/check-size.mjs
